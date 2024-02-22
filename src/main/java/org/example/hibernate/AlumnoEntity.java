@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "alumno", schema = "centro", catalog = "")
+@Table(name = "alumno", schema = "Centro", catalog = "")
 public class AlumnoEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
@@ -74,16 +74,5 @@ public class AlumnoEntity {
     @Override
     public int hashCode() {
         return Objects.hash(nia, direccion, edad, email, institutoNif);
-    }
-
-    @Override
-    public String toString() {
-        return "AlumnoEntity{" +
-                "nia=" + nia +
-                ", direccion='" + direccion + '\'' +
-                ", edad=" + edad +
-                ", email='" + email + '\'' +
-                ", institutoNif='" + institutoNif + '\'' +
-                '}';
     }
 }

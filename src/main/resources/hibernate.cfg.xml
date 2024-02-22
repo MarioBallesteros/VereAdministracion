@@ -4,13 +4,13 @@
         "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
     <session-factory>
-        <property name="connection.url">jdbc:mariadb://localhost:3306/centro</property>
+        <property name="connection.url">jdbc:mariadb://localhost:3306/Centro</property>
         <property name="connection.driver_class">org.mariadb.jdbc.Driver</property>
         <property name="connection.username">root</property>
-        <property name="connection.password">root</property>
+        <property name="connection.password">1234</property>
         <property name="hibernate.hbm2ddl.auto">update</property>
         <mapping class="org.example.hibernate.AlumnoEntity"/>
-        <mapping class="org.example.hibernate.AlumnoEntity"/>
+        <mapping class="org.example.hibernate.InstitutoEntity"/>
         <!-- <property name="connection.username"/> -->
         <!-- <property name="connection.password"/> -->
 
