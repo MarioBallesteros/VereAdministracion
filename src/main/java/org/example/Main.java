@@ -5,6 +5,8 @@ import org.example.hibernate.HibernateUtil;
 import org.example.hibernate.InstitutoEntity;
 import org.example.model.Alumno;
 import org.example.model.Asignatura;
+import org.example.model.Instituto;
+import org.example.model.Nota;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -17,12 +19,21 @@ public class Main {
         SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
         List<Alumno> alumnosCSV = new ArrayList<>();
         List<Asignatura> asignaturasCSV = new ArrayList<>();
+        List<Nota> notasCSV = new ArrayList<>();
+
         List<AlumnoEntity> alumnosSQL = new ArrayList<>();
         List<InstitutoEntity> institutosSQL = new ArrayList<>();
+        List<Alumno> alumnosMongo = new ArrayList<>();
+        List<Asignatura> asignaturasMongo = new ArrayList<>();
+        List<Nota> notasMongo = new ArrayList<>();
+        List<Instituto> insitutosMongo = new ArrayList<>();
+
+        String rutaCSV = "listado_alumnos.csv";
 
         LeerCSV csvReader = new LeerCSV();
-        alumnosCSV = csvReader.leerAlumnosDesdeCSV("listado_alumnos.csv");
-        asignaturasCSV = csvReader.LeerAsignaturas("listado_alumnos.csv");
+        alumnosCSV = csvReader.leerAlumnosDesdeCSV(rutaCSV);
+        asignaturasCSV = csvReader.LeerAsignaturas(rutaCSV);
+        notasCSV = csvReader.LeerNotas(rutaCSV);
 
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
@@ -39,6 +50,9 @@ public class Main {
             session.close();
         }
         sessionFactory.close();
+
+
+
 
     }
 }

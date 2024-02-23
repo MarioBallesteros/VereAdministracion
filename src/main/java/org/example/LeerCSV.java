@@ -3,6 +3,7 @@ package org.example;
 import org.example.model.Alumno;
 import org.example.model.Asignatura;
 import org.example.model.Instituto;
+import org.example.model.Nota;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -64,7 +65,7 @@ public class LeerCSV {
                     }
                 }
                 if (!existeAsignatura) {
-                    asignatura = new Asignatura(asignaturaCodigo, "1ero", 0, new ArrayList<>());
+                    asignatura = new Asignatura(asignaturaCodigo, new ArrayList<>());
                     asignaturas.add(asignatura);
                 }
             }
@@ -72,6 +73,41 @@ public class LeerCSV {
             e.printStackTrace();
         }
         return asignaturas;
+    }
+
+    public List<Nota> LeerNotas(String rutaCSV) {
+        List<Nota> notas = new ArrayList<>();
+        try (BufferedReader br = new BufferedReader(new FileReader(rutaCSV))) {
+            br.readLine();
+            String linea;
+            while ((linea = br.readLine()) != null) {
+                String[] valores = linea.split(";");
+                //NIA;Nombre;Asignatura;Profesor;Nota
+                String nombreAlumno = valores[0];
+                String nombreAsignatura = valores[1];
+                // me he quedado por aqui
+                // me he quedado por aqui
+                // me he quedado por aqui
+                // me he quedado por aqui
+                String asignatura = valores[2];
+                String profesor = valores[3];
+                String nota = valores[4];
+                Alumno alumno = null;
+                for (Alumno a : alumnos) {
+                    if (a.getNia().equalsIgnoreCase(nia)) {
+                        alumno = a;
+                        break;
+                    }
+                }
+                if (alumno == null) {
+                    alumno = new Alumno(nia,nombre,null,0,null,null);
+                    alumnos.add(alumno);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return alumnos;
     }
 }
 
