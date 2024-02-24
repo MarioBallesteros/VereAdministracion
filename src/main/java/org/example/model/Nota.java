@@ -1,5 +1,7 @@
 package org.example.model;
 
+import org.example.hibernate.AlumnoEntity;
+
 public class Nota {
     private Alumno alumno;
     private Asignatura asignatura;

@@ -1,5 +1,6 @@
 package org.example;
 
+import org.example.hibernate.AlumnoEntity;
 import org.example.model.Alumno;
 import org.example.model.Asignatura;
 import org.example.model.Instituto;
@@ -46,27 +47,28 @@ public class LeerCSV {
     public List<Asignatura> LeerAsignaturas(String rutaArchivo) {
         List<Asignatura> asignaturas = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(rutaArchivo))) {
-            br.readLine();
+            br.readLine(); // Salta la primera línea de encabezados
             String linea;
             while ((linea = br.readLine()) != null) {
                 String[] valores = linea.split(";");
-                //NIA;Nombre;Asignatura;Profesor;Nota
-                String nia = valores[0];
-                String nombre = valores[1];
                 String asignaturaCodigo = valores[2];
                 String profesor = valores[3];
-                String nota = valores[4];
-                Asignatura asignatura;
-                boolean existeAsignatura = false;
+                Asignatura asignaturaExistente = null;
                 for (Asignatura a : asignaturas) {
                     if (a.getCodigo().equalsIgnoreCase(asignaturaCodigo)) {
-                        existeAsignatura = true;
+                        asignaturaExistente = a;
                         break;
                     }
                 }
-                if (!existeAsignatura) {
-                    asignatura = new Asignatura(asignaturaCodigo, new ArrayList<>());
-                    asignaturas.add(asignatura);
+                if (asignaturaExistente == null) {
+                    List<String> profesores = new ArrayList<>();
+                    profesores.add(profesor);
+                    Asignatura nuevaAsignatura = new Asignatura(asignaturaCodigo, profesores);
+                    asignaturas.add(nuevaAsignatura);
+                } else {
+                    if (!asignaturaExistente.getProfesores().contains(profesor)) {
+                        asignaturaExistente.getProfesores().add(profesor);
+                    }
                 }
             }
         } catch (IOException e) {
@@ -75,39 +77,39 @@ public class LeerCSV {
         return asignaturas;
     }
 
-    public List<Nota> LeerNotas(String rutaCSV) {
+
+    public List<Nota> LeerNotas(String rutaCSV, List<Alumno> alumnos, List<Asignatura> asignaturas) {
         List<Nota> notas = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(rutaCSV))) {
-            br.readLine();
+            br.readLine(); // Saltar encabezado
             String linea;
             while ((linea = br.readLine()) != null) {
                 String[] valores = linea.split(";");
-                //NIA;Nombre;Asignatura;Profesor;Nota
-                String nombreAlumno = valores[0];
-                String nombreAsignatura = valores[1];
-                // me he quedado por aqui
-                // me he quedado por aqui
-                // me he quedado por aqui
-                // me he quedado por aqui
-                String asignatura = valores[2];
+                // Asumiendo que tienes identificadores únicos o nombres para buscar
+                String nia = valores[0];
+                String nombreAsignatura = valores[2];
                 String profesor = valores[3];
-                String nota = valores[4];
-                Alumno alumno = null;
-                for (Alumno a : alumnos) {
-                    if (a.getNia().equalsIgnoreCase(nia)) {
-                        alumno = a;
-                        break;
-                    }
-                }
-                if (alumno == null) {
-                    alumno = new Alumno(nia,nombre,null,0,null,null);
-                    alumnos.add(alumno);
+                double notaValor = Double.parseDouble(valores[4].replace(",", "."));
+
+                Alumno alumnoEncontrado = alumnos.stream()
+                        .filter(a -> a.getNia().equals(nia))
+                        .findFirst()
+                        .orElse(null);
+                Asignatura asignaturaEncontrada = asignaturas.stream()
+                        .filter(a -> a.getCodigo().equalsIgnoreCase(nombreAsignatura))
+                        .findFirst()
+                        .orElse(null);
+
+                if (alumnoEncontrado != null && asignaturaEncontrada != null) {
+                    Nota nota = new Nota(alumnoEncontrado, asignaturaEncontrada, profesor, notaValor);
+                    notas.add(nota);
                 }
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return alumnos;
+        return notas;
     }
+
 }
 

@@ -23,8 +23,8 @@ public class AlumnoEntity {
     @Column(name = "instituto_nif", nullable = true, length = 10)
     private String institutoNif;
 
-    public int getNia() {
-        return nia;
+    public String getNia() {
+        return String.valueOf(nia);
     }
 
     public void setNia(int nia) {

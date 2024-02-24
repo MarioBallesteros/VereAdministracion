@@ -53,4 +53,13 @@ public class InstitutoEntity {
     public int hashCode() {
         return Objects.hash(nif, nombre, ciudad);
     }
+
+    @Override
+    public String toString() {
+        return "InstitutoEntity{" +
+                "nif='" + nif + '\'' +
+                ", nombre='" + nombre + '\'' +
+                ", ciudad='" + ciudad + '\'' +
+                '}';
+    }
 }

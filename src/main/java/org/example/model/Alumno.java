@@ -1,6 +1,7 @@
 package org.example.model;
 
 import org.bson.types.ObjectId;
+import org.example.hibernate.InstitutoEntity;
 
 public class Alumno {
     private String nia;
@@ -8,12 +9,12 @@ public class Alumno {
     private String direccion;
     private int edad;
     private String email;
-    private Instituto instituto;
+    private InstitutoEntity instituto;
 
     public Alumno() {
     }
 
-    public Alumno(String nia, String nombre, String direccion, int edad, String email, Instituto instituto) {
+    public Alumno(String nia, String nombre, String direccion, int edad, String email, InstitutoEntity instituto) {
         this.nia = nia;
         this.nombre = nombre;
         this.direccion = direccion;
@@ -63,11 +64,11 @@ public class Alumno {
         this.email = email;
     }
 
-    public Instituto getInstituto() {
+    public InstitutoEntity getInstituto() {
         return instituto;
     }
 
-    public void setInstituto(Instituto instituto) {
+    public void setInstituto(InstitutoEntity instituto) {
         this.instituto = instituto;
     }
 

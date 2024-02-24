@@ -7,7 +7,7 @@
         <property name="connection.url">jdbc:mariadb://localhost:3306/Centro</property>
         <property name="connection.driver_class">org.mariadb.jdbc.Driver</property>
         <property name="connection.username">root</property>
-        <property name="connection.password">1234</property>
+        <property name="connection.password">root</property>
         <property name="hibernate.hbm2ddl.auto">update</property>
         <mapping class="org.example.hibernate.AlumnoEntity"/>
         <mapping class="org.example.hibernate.InstitutoEntity"/>
